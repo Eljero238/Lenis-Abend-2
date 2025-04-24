@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kapitel 3 & 4 – Von der Zacke-Bahn zur Koordinate</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #fff8ec;
+      color: #3c2f2f;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #a05b2f;
+      margin-bottom: 1rem;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+    .punktebox {
+      background: #f7e9d4;
+      padding: 1rem;
+      border-radius: 10px;
+      margin: 1.5rem 0;
+    }
+    .emoji-bar {
+      font-size: 1.5rem;
+      margin-top: 0.5rem;
+    }
+    .hidden {
+      display: none;
+    }
+    .error {
+      color: #d32f2f;
+      margin-top: 0.5rem;
+    }
+    .success {
+      color: #388e3c;
+      font-weight: bold;
+    }
+    .loesungsbox, .raetsel-container {
+      background: #f7e9d4;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin: 1.5rem 0;
+    }
+    .raetsel {
+      margin-bottom: 1.5rem;
+      border: 2px dashed #a05b2f;
+      padding: 1.5rem;
+      border-radius: 10px;
+      background: #fbf3e9;
+    }
+    input[type="text"] {
+      padding: 0.8rem;
+      font-size: 1rem;
+      width: 100%;
+      max-width: 300px;
+      border: 1px solid #a05b2f;
+      border-radius: 5px;
+      margin: 0.5rem 0 1rem 0;
+    }
+    button {
+      background: #a05b2f;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin: 0.5rem 0 1rem 0;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #8a4a2a;
+    }
+    .tipp {
+      font-style: italic;
+      color: #5a4a42;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    .final-hinweis {
+      background: #e8f5e9;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin: 1.5rem 0;
+      border-left: 4px solid #388e3c;
+    }
+    .kreide-boden {
+      background: #333;
+      color: white;
+      padding: 1.5rem;
+      border-radius: 5px;
+      font-family: 'Chalkduster', 'Marker Felt', fantasy;
+      text-align: center;
+      margin: 1.5rem 0;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+    }
+    .marc-sprechblase {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      position: relative;
+      margin: 1.5rem 0;
+      border: 2px solid #a05b2f;
+    }
+    .marc-sprechblase:after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 20px;
+      border-width: 15px 15px 0;
+      border-style: solid;
+      border-color: #a05b2f transparent;
+    }
+    .transition-text {
+      font-style: italic;
+      margin: 1.5rem 0;
+      padding: 1rem;
+      background: #f0e6d6;
+      border-radius: 8px;
+    }
+    .raetsel-teil {
+      margin-bottom: 1.5rem;
+    }
+    blockquote {
+      font-style: italic;
+      border-left: 3px solid #a05b2f;
+      padding-left: 1rem;
+      margin: 1.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- KAPITEL 3: Zacke-Bahn Station -->
+  <div id="kapitel3">
+    <h1>Kapitel 3 – An der Zacke-Bahn</h1>
+    <p>
+      Wauzi meldet sich zurück! 🐾<br>
+      An der Talstation wartet jemand, der dich schon als Kind auf den Schultern trug – 
+      mit einer Begleiterin, deren vierbeinige Freundin dir schon oft die Schuhe zerkaut hat...
+    </p>
+    
+    <div class="punktebox">
+      <strong>Aktueller Punktestand:</strong> <span id="punkte">5</span> Punkte
+      <div class="emoji-bar" id="emojiBar">🍷🥄⚪⚪⚪⚪⚪</div>
+    </div>
+
+    <div class="loesungsbox">
+      <p><em>Die beiden haben jeweils ein Rätsel für dich:</em></p>
+      
+      <div class="raetsel-teil">
+        <p><strong>1. Von ihm:</strong></p>
+        <p><em>Gesucht wird ein Getränk:</em></p>
+        <input type="text" id="loesung1" placeholder="Erste Lösung...">
+      </div>
+      
+      <div class="raetsel-teil">
+        <p><strong>2. Von ihr:</strong></p>
+        <p><em>Gesucht wird ein Getränk, das oft mit Wein gemischt wird:</em></p>
+        <input type="text" id="loesung2" placeholder="Zweite Lösung...">
+      </div>
+      
+      <button onclick="pruefeGetraenke()">Lösungen bestätigen</button>
+      <p class="error" id="fehlermeldung"></p>
+    </div>
+
+    <div id="brauerei-raetsel" class="hidden">
+      <h2>🍇 Kapitel 4 – Wo der Samstag noch nachklingt…</h2>
+      <p>
+        Du hast beide Wörter gefunden – stark, Leni!<br><br>
+        Jetzt geht's weiter zu einem Ort, den ihr gemeinsam erkundet habt:
+      </p>
+      <blockquote>
+        „Am Samstag floss das Bier in Strömen,<br>
+        der Bass war laut, die Stimme kaum zu schonen.<br>
+        Vergnügt im Zelt, mit Herz und G'schmack,<br>
+        da war was los – mit Dinkel… <em>ach!</em><br>
+        Erinner dich an Ort und Marke –<br>
+        dann findest du die nächste starke."
+      </blockquote>
+      <p><strong>Wohin sollst du dich aufmachen?</strong></p>
+      <input type="text" id="bierraetsel" placeholder="Wohin führt dich deine Erinnerung?">
+      <button onclick="pruefeBrauerei()">Antwort prüfen</button>
+      <p class="error" id="bierfehler"></p>
+    </div>
+  </div>
+
+  <script>
+    function pruefeGetraenke() {
+      const loesung1 = document.getElementById("loesung1").value.trim().toLowerCase();
+      const loesung2 = document.getElementById("loesung2").value.trim().toLowerCase();
+      const fehlermeldung = document.getElementById("fehlermeldung");
+
+      if (loesung1 === "wein" && loesung2 === "schorle") {
+        document.getElementById("brauerei-raetsel").classList.remove("hidden");
+        fehlermeldung.textContent = "";
+      } else {
+        fehlermeldung.textContent = "Hmm, das stimmt noch nicht ganz. Versuch’s nochmal 🍷🥤";
+      }
+    }
+
+ function pruefeBrauerei() {
+  const eingabe = document.getElementById("bierraetsel").value.trim().toLowerCase();
+  if (eingabe === "dinkelacker" || eingabe === "dinkelacker brauerei") {
+    document.getElementById("bierfehler").textContent = "";
+    document.getElementById("kapitel3").classList.add("hidden");
+    document.getElementById("kapitel4").classList.remove("hidden"); // Nur hier sichtbar machen
+    updatePunkte(5);
+  } else {
+    document.getElementById("bierfehler").textContent = "Fast! Denk an das Bier vom Wasen...";
+  }
+}
+  </script>
+<!-- KAPITEL 4: Koordinaten-Challenge (versteckt) -->
+<div id="kapitel4" class="hidden">
+ <h1>Kapitel 5 – Koordinaten-Challenge</h1>
+  <div class="transition-text">
+    <p>Na dann mal los, Leni – auf zur Brauerei! Dort wartet ein freundlicher Unbekannter mit einer besonderen Mission auf dich. 
+    Er ist nicht auf Bierverkostung aus, sondern hat etwas in petto, das dich auf die nächste Etappe deiner Reise schickt.</p>
+  </div>
+  <!-- Fortschrittsanzeige -->
+
+  <h1>Die Koordinaten-Challenge</h1>
+  
+  <div class="marc-sprechblase">
+    "Ich geb dir fünf Rätsel, Leni – jede Lösung ist eine Ziffer der Koordinate. Wenn du alle hast, trag sie unten ein!"
+  </div>
+
+  <!-- Eingabe für vollständige Koordinate -->
+  <div class="raetsel">
+    <label for="koordinatenEingabe">Gib die vollständige Koordinate ein:</label><br>
+    <input type="text" id="koordinatenEingabe" placeholder="48._____">
+    <button onclick="pruefeKoordinate()">Prüfen</button>
+    <p class="error" id="koordinatenFehler"></p>
+  </div>
+
+  <!-- Erfolgsmeldung & Weiterleitung -->
+  <div class="final-hinweis hidden" id="finalHinweis">
+    <div class="kreide-boden">48.77178</div>
+    <div class="marc-sprechblase">
+      "Gut gemacht! Diese Koordinate führt dich weiter.<br>
+      Wen hast du heute bereits gesehen... vielleicht jemanden mit 'H' und 'C'?"
+    </div>
+    <p>Schreib einer der beiden Personen auf WhatsApp:</p>
+    <div class="whatsapp-hinweis">
+      "Meine Koordinate ist die 48.77178 – was habt ihr?"
+    </div>
+      <button onclick="zeigeVisitenkarte()">Zum Finale</button>
+  </div>
+</div>
+
+  <!-- Visitenkarte von Leopold von Wiesen (unsichtbar bis zum Klick auf "Zum Finale") -->
+<div id="visitenkarte" class="hidden">
+  <h2>Leopold von Wiesen</h2>
+  <img src="https://https://github.com/Eljero238/Lenis-Abend-2/blob/main/ChatGPT%20Image%2024.%20Apr.%202025%2C%2022_42_31.png" alt="Visitenkarte Leopold von Wiesen" style="width: 300px; height: auto;">
+</div>
+
+  <script>
+    let punkte = 5;
+    let geloesteZahlen = [];
+
+    function updatePunkte(p) {
+      punkte += p;
+      document.getElementById("punkte").textContent = punkte;
+      
+      // Emoji-Bar aktualisieren
+      const filled = Math.min(Math.floor(punkte / 5), 7);
+      const emojis = ["⚪", "⚪", "⚪", "⚪", "⚪", "⚪", "⚪"];
+      for (let i = 0; i < filled; i++) {
+        emojis[i] = i === 1 ? "🥄" : "🍷"; // Position 1 bleibt Löffel
+      }
+      document.getElementById("emojiBar").textContent = emojis.join("");
+    }
+function zeigeVisitenkarte() {
+    // Visitenkarte sichtbar machen
+    document.getElementById('visitenkarte').classList.remove('hidden');
+    // Zum Finale Button entfernen
+    document.getElementById('finalHinweis').style.display = 'none';
+  }
+
+    function pruefeKoordinate() {
+    const eingabe = document.getElementById("koordinatenEingabe").value.trim();
+    const fehler = document.getElementById("koordinatenFehler");
+
+    if (eingabe === "48.77178") {
+      fehler.textContent = "";
+      fehler.className = "success";
+      document.getElementById("finalHinweis").classList.remove("hidden");
+    } else {
+      fehler.textContent = "Hmm... das stimmt noch nicht ganz. Bist du sicher, dass alle Zahlen richtig sind?";
+      fehler.className = "error";
+    }
+}
+
+    function pruefeGetraenke() {
+      const loesung1 = document.getElementById("loesung1").value.trim().toLowerCase();
+      const loesung2 = document.getElementById("loesung2").value.trim().toLowerCase();
+      const fehler = document.getElementById("fehlermeldung");
+      
+      if (loesung1 === "wein" && loesung2 === "schorle") {
+        fehler.textContent = "";
+        fehler.className = "success";
+        fehler.textContent = "✓ Richtig! +10 Punkte";
+        document.getElementById("brauerei-raetsel").classList.remove("hidden");
+        updatePunkte(10);
+      } else {
+        fehler.textContent = "Nicht ganz richtig... versuch's nochmal!";
+        fehler.className = "error";
+      }
+    }
+
+    function pruefeBrauerei() {
+      const eingabe = document.getElementById("bierraetsel").value.trim().toLowerCase();
+      if (eingabe === "dinkelacker" || eingabe === "dinkelacker brauerei") {
+        document.getElementById("bierfehler").textContent = "";
+        document.getElementById("kapitel3").classList.add("hidden");
+        document.getElementById("kapitel4").classList.remove("hidden");
+        updatePunkte(5);
+      } else {
+        document.getElementById("bierfehler").textContent = "Fast! Denk an das Bier vom Wasen...";
+      }
+    }
+
+    function pruefeZahl(loesung, feldId, naechstesRaetsel) {
+      const eingabe = document.getElementById(feldId).value.trim();
+      const fehler = document.getElementById(`fehler${feldId.slice(-1)}`);
+
+      if (eingabe === loesung) {
+        fehler.textContent = "";
+        fehler.className = "success";
+        fehler.textContent = "✓ Richtig! +5 Punkte";
+        geloesteZahlen.push(loesung);
+        updateKreideDisplay();
+        
+        if (naechstesRaetsel !== 'finalHinweis') {
+          document.getElementById(naechstesRaetsel).classList.remove("hidden");
+        } else {
+          document.getElementById("finalHinweis").classList.remove("hidden");
+        }
+        
+        updatePunkte(5);
+      } else {
+        fehler.textContent = "Falsch – versuch's nochmal!";
+        fehler.className = "error";
+      }
+    }
+  </script>
+</body>
+</html>
